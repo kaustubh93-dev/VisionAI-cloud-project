@@ -1,0 +1,107 @@
+﻿@page "/"
+
+@using Azure;
+@using Azure.AI.Vision.ImageAnalysis;
+@using System;
+@using System.IO;
+@using System.Threading.Tasks;
+@using Azure.AI.OpenAI;
+@rendermode InteractiveServer
+
+<PageTitle>Home</PageTitle>
+
+<h1>Computer Vision</h1>
+<p> Insert URL or type prompt: </p>
+
+<div>
+  <textarea @bind="UrlOrPrompt" rows="1" cols="55" 
+    placeholder="Enter URL to analyze or textual prompt to generation an image"></textarea>
+
+ <br/>
+
+  <button @onclick="AnalyzeImage">Analyze Image</button>
+  <button @onclick="GenerateImage">Generate Image</button>
+
+</div>
+
+@if (isImageAnalyzed)
+{
+  <img src="@UrlOrPrompt" alt="Image from URL" width="500" height="400"/>
+}
+ <p>@Caption</p>
+  <img src="@imageUrl" alt="Image to analyze" width="300" height="300" />
+
+
+@code
+{
+    string UrlOrPrompt = "";
+    Uri imageUrl = new Uri("https://placehold.it/300x300");
+    string Caption ="";
+    bool isImageAnalyzed = false;
+    
+    void AnalyzeImage()
+    {
+       
+        string endpoint = Environment.GetEnvironmentVariable("VISION_ENDPOINT");
+        string key = Environment.GetEnvironmentVariable("VISION_KEY");
+
+        ImageAnalysisClient client = new ImageAnalysisClient(
+            new Uri(endpoint),
+            new AzureKeyCredential(key));
+
+
+        ImageAnalysisResult result = client.Analyze(
+            new Uri(UrlOrPrompt),
+            VisualFeatures.Caption | VisualFeatures.Read,
+            new ImageAnalysisOptions { GenderNeutralCaption = true });
+
+        Console.WriteLine("Image analysis results:");
+        Console.WriteLine(" Caption:");
+        Console.WriteLine($"   '{result.Caption.Text}', Confidence {result.Caption.Confidence:F4}");
+        Caption = result.Caption.Text;
+
+                Console.WriteLine(" Read:");
+        foreach (DetectedTextBlock block in result.Read.Blocks)
+            foreach (DetectedTextLine line in block.Lines)
+            {
+                Console.WriteLine($"   Line: '{line.Text}', Bounding Polygon: [{string.Join(" ", line.BoundingPolygon)}]");
+                foreach (DetectedTextWord word in line.Words)
+                {
+                    Console.WriteLine($"     Word: '{word.Text}', Confidence {word.Confidence.ToString("#.####")}, Bounding Polygon: [{string.Join(" ", word.BoundingPolygon)}]");
+                }
+            }
+
+        isImageAnalyzed = true;
+    }
+    async Task GenerateImage()
+{
+    string endpoint = Environment.GetEnvironmentVariable("AZURE_OPENAI_ENDPOINT");
+    string key = Environment.GetEnvironmentVariable("AZURE_OPENAI_API_KEY");
+
+    OpenAIClient client = new(new Uri(endpoint), new AzureKeyCredential(key));
+
+    Response<ImageGenerations> imageGenerations = await client.GetImageGenerationsAsync(
+        new ImageGenerationOptions()
+        {
+            Prompt = UrlOrPrompt,
+            Size = ImageSize.Size256x256,
+        });
+
+    // Check if any images were generated
+    if (imageGenerations.Value.Data.Count > 0 && imageGenerations.Value.Data[0].Url != null)
+    {
+        // Image Generations responses provide URLs you can use to retrieve requested images
+        Uri imageUri = imageGenerations.Value.Data[0].Url;
+            imageUrl = imageUri;
+        StateHasChanged();
+        
+        // Print the image URI to console:
+        Console.WriteLine(imageUri);
+        
+    }
+    else
+    {
+        Console.WriteLine("No images were generated.");
+    }
+  }      
+}
