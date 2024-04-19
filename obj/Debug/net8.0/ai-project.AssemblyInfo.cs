@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ai-project")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+18e77943aa2cfca937f9f07124ef6d84361f9f6c")]
 [assembly: System.Reflection.AssemblyProductAttribute("ai-project")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ai-project")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
