@@ -1,8 +1,8 @@
 # Challenge project - Add image analysis and generation capabilities to your application
 
-[Challenge overview](aka.ms/project2)
+[Challenge overview](https://learn.microsoft.com/en-us/training/modules/challenge-project-add-image-analysis-generation-to-app/)
 
-This project is a web application built with Blazor. It uses the Azure OpenAI API (OpenAI version availible too) to analyze and generate images based on provided prompts and URLs.
+This project is a web application built with Blazor. It uses the Azure OpenAI API  to analyze and generate images based on provided prompts and URLs.
 
 ## Prerequisites
 
@@ -12,6 +12,13 @@ This project is a web application built with Blazor. It uses the Azure OpenAI AP
 * Docker
 * Dev Containers extension for VS Code
 
+## Helpful Links
+
+* Image Analysis [Quickstart: Image Analysis 4.0 ](https://learn.microsoft.com/en-us/azure/ai-services/computer-vision/quickstarts-sdk/image-analysis-client-library-40?tabs=visual-studio%2Cwindows&pivots=programming-language-csharp)
+
+* Generate images with Azure OpenAI Service [Quickstart: Generate images with Azure OpenAI Service ](https://learn.microsoft.com/en-us/azure/ai-services/computer-vision/quickstarts-sdk/image-analysis-client-library-40?tabs=visual-studio%2Cwindows&pivots=programming-language-csharp)
+
+
 ## Installing
 
 1. Clone the repository.
@@ -19,11 +26,13 @@ This project is a web application built with Blazor. It uses the Azure OpenAI AP
 3. VS Code will prompt you to open the project in a dev container. Click 'Reopen in Container'.
 4. Restore the packages: `dotnet restore`
 5. Set your environment variables
-    * OpenAI API key or Azure OpenAI API key: `export OPENAI_API_KEY=<your_api_key>`
-    * Azure OpenAI endpoint (if you're using Azure OpenAI): `export OPENAI_ENDPOINT=<your_endpoint>`
-    * Azure Computer Vision API key: `export VISION_API_KEY=<your_api_key>`
+    * OpenAI API key or Azure OpenAI API key: `export AZURE_OPENAI_API_KEY=<your_api_key>`
+    * Azure OpenAI endpoint (if you're using Azure OpenAI): `export AZURE_OPENAI_ENDPOINT=<your_endpoint>`
+    * Azure Computer Vision API key: `export VISION_KEY=<your_api_key>`
     * Azure Computer Vision endpoint: `export VISION_ENDPOINT=<your_endpoint>`
-5. Run the project: `dotnet run`
+5. Code in Home.razor
+6. Run the project locally using `dotnet watch` 
+6. Run the project: `dotnet run`
 
 ## Packages used
 
