@@ -35,3 +35,4 @@
 /workspaces/ai-project/obj/Debug/net8.0/ai-project.csproj.AssemblyReference.cache
 /workspaces/ai-project/obj/Debug/net8.0/ai-project.csproj.Up2Date
 /workspaces/ai-project/bin/Debug/net8.0/Azure.AI.OpenAI.dll
+/workspaces/ai-project/obj/Debug/net8.0/ai-project.sourcelink.json
