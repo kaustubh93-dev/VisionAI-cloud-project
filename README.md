@@ -39,3 +39,7 @@ This project is a web application built with Blazor. It uses the Azure OpenAI AP
 * [Betalgo OpenAI](https://github.com/betalgo/openai)
 * [Azure OpenAI](https://www.nuget.org/packages/Azure.AI.OpenAI/1.0.0-beta.10)
 * [Azure.AI.Vision.ImageAnalysis](https://www.nuget.org/packages/Azure.AI.Vision.ImageAnalysis/0.15.1-beta.1)
+
+## Inspired from 
+
+* [GPS - Building a Cloud Project from Zero](https://www.youtube.com/watch?v=GjLTdKr73pc)
